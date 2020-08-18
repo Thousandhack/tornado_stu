@@ -26,6 +26,7 @@ if __name__ == "__main__":
         [(r"/", IndexHandler)]
     )
     # listen 用于创建http的实例，并绑定端口
+    # 只能在单进程模式中使用
     app.listen(8800)
     # http://127.0.0.1:8800/
     # 返回：hello tornado web!!!
