@@ -55,3 +55,7 @@ if __name__ == "__main__":
     tornado.ioloop.IOLoop.current().start()
     # 运行以下命令开启
     # >python server_04.py --port=8800 --list=good,nice,cool
+    # 能这样，但是以后不会这样运行项目
+
+    # 从配置文件导入参数
+    # tornado.options.parse_config_file(path)
