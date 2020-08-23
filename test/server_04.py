@@ -59,3 +59,6 @@ if __name__ == "__main__":
 
     # 从配置文件导入参数
     # tornado.options.parse_config_file(path)
+
+    # 关闭日志的情况下的命令：
+    # >python server_04.py --port=8800 --list=good,nice,cool --logging=None

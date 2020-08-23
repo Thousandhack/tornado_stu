@@ -15,6 +15,8 @@ class IndexHandler(tornado.web.RequestHandler):
 
 
 if __name__ == "__main__":
+    # 将取出打印日志的配置文件
+    # tornado.options.options.logging = None
     # options.parse_config_file(path, final=final)
     tornado.options.parse_config_file("config")
     print("list:", tornado.options.options.list)

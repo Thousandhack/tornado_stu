@@ -8,7 +8,7 @@ class IndexHandler(tornado.web.RequestHandler):
     # 处理get请求的方法
     def get(self):
         #  给浏览器响应信息
-        self.write("hello tornado web five!!!")
+        self.write("hello tornado web six!!!")
 
 
 if __name__ == "__main__":
