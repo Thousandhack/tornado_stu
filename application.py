@@ -1,5 +1,6 @@
 from views.index import IndexHandler
 import tornado.web
+import config
 
 
 class Application(tornado.web.Application):
@@ -12,4 +13,4 @@ class Application(tornado.web.Application):
             (r"/", IndexHandler)
         ]
         # 把路由给父对象调用
-        super(Application, self).__init__(handlers)
+        super(Application, self).__init__(handlers, **config.settings)
