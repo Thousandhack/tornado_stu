@@ -11,7 +11,8 @@ class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
             (r"/", index.IndexHandler),
-            (r"/test_value", index.TestValueHandler, {"test_value_1": 1, "test_value_2": 2})  # 传参数进去
+            (r"/test_value", index.TestValueHandler, {"test_value_1": 1, "test_value_2": 2}),  # 传参数进去
+            (r"/json", index.JsonHandler),
         ]
         # 把路由给父对象调用
         # **config.settings 为配置

@@ -6,7 +6,7 @@ options = {
 
 # 配置
 settings = {
-    "debug": True,
+    "debug": True,      # False为生产模式
     "static_path": "",  # 设置文件保存目录
     "template_path": "",  # 设置模块文件目录
 }

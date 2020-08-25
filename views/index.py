@@ -20,3 +20,20 @@ class TestValueHandler(tornado.web.RequestHandler):
         print(self.test_value_1)
         print(self.test_value_2)
         self.write("Test Value tornado web project")
+
+
+
+
+
+class JsonHandler(tornado.web.RequestHandler):
+
+    def get(self, *args, **kwargs):
+        per = {
+            "name": "hsz",
+            "age": 18,
+            "heigth": 175
+        }
+        self.write(per)  # 也可以不需要转  推荐使用
+        # import json
+        # # 将字典转化为json
+        # self.write(json.dumps(per))
