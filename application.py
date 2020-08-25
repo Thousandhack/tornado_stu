@@ -1,4 +1,4 @@
-from views.index import IndexHandler
+from views import index
 import tornado.web
 import config
 
@@ -10,7 +10,9 @@ class Application(tornado.web.Application):
 
     def __init__(self):
         handlers = [
-            (r"/", IndexHandler)
+            (r"/", index.IndexHandler),
+            (r"/test_value", index.TestValueHandler, {"test_value_1": 1, "test_value_2": 2})  # 传参数进去
         ]
         # 把路由给父对象调用
+        # **config.settings 为配置
         super(Application, self).__init__(handlers, **config.settings)
