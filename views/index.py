@@ -22,9 +22,6 @@ class TestValueHandler(tornado.web.RequestHandler):
         self.write("Test Value tornado web project")
 
 
-
-
-
 class JsonHandler(tornado.web.RequestHandler):
 
     def get(self, *args, **kwargs):
@@ -33,7 +30,13 @@ class JsonHandler(tornado.web.RequestHandler):
             "age": 18,
             "heigth": 175
         }
+        # 自定义请求头
+        self.set_header("Content-Type", "application/json;charset=UTF-8")
+        self.set_header("suck", "good")
         self.write(per)  # 也可以不需要转  推荐使用
         # import json
         # # 将字典转化为json
         # self.write(json.dumps(per))
+
+        #  设置请求头的作用
+        # self.set_header() 设置请求头的作用
