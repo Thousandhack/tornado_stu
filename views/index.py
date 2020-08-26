@@ -40,3 +40,17 @@ class JsonHandler(tornado.web.RequestHandler):
 
         #  设置请求头的作用
         # self.set_header() 设置请求头的作用
+
+
+class HeaderHandler(tornado.web.RequestHandler):
+
+    def set_default_headers(self) -> None:
+        """
+        # http相应方法之前被调用，可以重写该方法，来预先设置headers
+        一般这样用
+        :return:
+        """
+        self.set_header("Content-Type", "test/html;charset=UTF-8")
+
+    def get(self, *args, **kwargs):
+        pass
