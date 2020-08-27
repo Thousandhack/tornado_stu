@@ -53,4 +53,26 @@ class HeaderHandler(tornado.web.RequestHandler):
         self.set_header("Content-Type", "test/html;charset=UTF-8")
 
     def get(self, *args, **kwargs):
-        pass
+        """
+        如果这边还使用self.set_header那就会使用self.set_header
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        self.set_status(status_code=200, reason=None)
+        self.write("返回的数据")
+
+
+class StatusCodeHandler(tornado.web.RequestHandler):
+    def get(self,*args,**kwargs):
+        """
+        self.set_status(status_code=200,reason=None)
+        status_code 状态码，为int类型
+        reason 为返回的消息，最后为英文
+
+
+        :param request:
+        :return:
+        """
+        self.set_status(status_code=400, reason="request bad")
+        self.write("返回的数据")
