@@ -14,6 +14,8 @@ class Application(tornado.web.Application):
             (r"/test_value", index.TestValueHandler, {"test_value_1": 1, "test_value_2": 2}),  # 传参数进去
             (r"/json", index.JsonHandler),
             (r"/status_code", index.StatusCodeHandler),
+            (r"/redirect", index.RedirectHandler),
+            (r"/error", index.ErrorHandler),
         ]
         # 把路由给父对象调用
         # **config.settings 为配置

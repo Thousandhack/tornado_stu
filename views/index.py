@@ -64,7 +64,7 @@ class HeaderHandler(tornado.web.RequestHandler):
 
 
 class StatusCodeHandler(tornado.web.RequestHandler):
-    def get(self,*args,**kwargs):
+    def get(self, *args, **kwargs):
         """
         self.set_status(status_code=200,reason=None)
         status_code 状态码，为int类型
@@ -75,4 +75,25 @@ class StatusCodeHandler(tornado.web.RequestHandler):
         :return:
         """
         self.set_status(status_code=400, reason="request bad")
+        self.write("返回的数据")
+
+
+class RedirectHandler(tornado.web.RequestHandler):
+    def get(self, *args, **kwargs):
+        """
+        :param request:
+        :return:
+        """
+        self.redirect("https://www.huya.com/")
+        # self.write("返回的数据")
+
+
+class ErrorHandler(tornado.web.RequestHandler):
+    def get(self, *args, **kwargs):
+        """
+        :param request:
+        :return:
+        """
+        if 1 == 1:
+            self.send_error(status_code=500, **kwargs)
         self.write("返回的数据")
