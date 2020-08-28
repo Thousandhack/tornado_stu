@@ -89,11 +89,50 @@ class RedirectHandler(tornado.web.RequestHandler):
 
 
 class ErrorHandler(tornado.web.RequestHandler):
+
+    def write_error(self, status_code, **kwargs):
+        if status_code == 500:
+            self.write("服务器内部错误")
+        else:
+            self.write("不知道发生什么错误")
+
     def get(self, *args, **kwargs):
-        """
-        :param request:
-        :return:
-        """
-        if 1 == 1:
-            self.send_error(status_code=500, **kwargs)
-        self.write("返回的数据")
+        # """
+        # 抛出HTTP的错误状态码，抛出错误后tornado会调用write_error()方法进行处理，并
+        # 注意：在send_error之下就不要响应输出了
+        #
+        # 用来处理send_error抛出的错误信息，并返回给浏览器错误界面
+        # :param args:
+        # :param kwargs:
+        # :return:
+        # """
+        flag = self.get_query_argument('flag')  # 接收网址上的参数
+        print(flag, type(flag))
+        # flag = '1'
+        if flag == '1':
+            self.send_error(status_code=500)
+            # 紧接的运行的write_error方法，里面有相应的返回消息
+        self.write("right!")
+
+
+# """
+#         访问：http://127.0.0.1:8800/is_error?flag=1
+#         Traceback (most recent call last):
+#           File "C:\Users\admin\Envs\tornado_demo\lib\site-packages\tornado\web.py", line 1590, in _execute
+#             result = method(*self.path_args, **self.path_kwargs)
+#           File "E:\tornado\tornado_stu\views\index.py", line 91, in get
+#             self.write("right!")
+#           File "C:\Users\admin\Envs\tornado_demo\lib\site-packages\tornado\web.py", line 738, in write
+#             raise RuntimeError("Cannot write() after finish()")
+#         RuntimeError: Cannot write() after finish()
+# """
+
+class RenameHandler(tornado.web.RequestHandler):
+    def get(self, *args, **kwargs):
+        self.write("111111")
+
+
+class OneHandler(tornado.web.RequestHandler):
+    def get(self, *args, **kwargs):
+        url = self.reverse_url("json")
+        self.write("<a href='%s'>去另一个页面，one,one</a>" % (url))

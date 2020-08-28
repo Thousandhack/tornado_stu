@@ -15,7 +15,11 @@ class Application(tornado.web.Application):
             (r"/json", index.JsonHandler),
             (r"/status_code", index.StatusCodeHandler),
             (r"/redirect", index.RedirectHandler),
-            (r"/error", index.ErrorHandler),
+            # 错误处理
+            (r"/is_error", index.ErrorHandler),
+            # 反向代理
+            tornado.web.url('/rename', index.RenameHandler, name="json"),
+            (r"/one", index.OneHandler),
         ]
         # 把路由给父对象调用
         # **config.settings 为配置
