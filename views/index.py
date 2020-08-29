@@ -7,11 +7,20 @@ class IndexHandler(tornado.web.RequestHandler):
     def get(self):
         #  给浏览器响应信息
         self.write("hello tornado web project")
+        # 主要作用为刷新缓冲区，关闭当次请求通道
+        # 在finish下边就不要在write
+        # self.finish()
 
 
 class TestValueHandler(tornado.web.RequestHandler):
     def initialize(self, test_value_1, test_value_2):
+        """
         # 将参数传进来并初始化可以让get方法使用
+        接收参数
+        :param test_value_1:
+        :param test_value_2:
+        :return:
+        """
         self.test_value_1 = test_value_1
         self.test_value_2 = test_value_2
 
@@ -93,6 +102,8 @@ class ErrorHandler(tornado.web.RequestHandler):
     def write_error(self, status_code, **kwargs):
         if status_code == 500:
             self.write("服务器内部错误")
+        elif status_code == 400:
+            self.write("请求参数错误")
         else:
             self.write("不知道发生什么错误")
 
@@ -129,10 +140,18 @@ class ErrorHandler(tornado.web.RequestHandler):
 
 class RenameHandler(tornado.web.RequestHandler):
     def get(self, *args, **kwargs):
-        self.write("111111")
+        self.write("rename 111111")
 
 
 class OneHandler(tornado.web.RequestHandler):
     def get(self, *args, **kwargs):
-        url = self.reverse_url("json")
-        self.write("<a href='%s'>去另一个页面，one,one</a>" % (url))
+        """
+        通过self.reverse_url("rename_demo")获取接口的真正的名称
+        rename_demo 为路由中name的值，然后最后可以发到访问真正url的接口
+        这边的例子，即：RenameHandler
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        url = self.reverse_url("rename_demo")
+        self.write("<a href='%s'>去rename一个页面，one,one</a>" % (url))

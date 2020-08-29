@@ -18,7 +18,7 @@ class Application(tornado.web.Application):
             # 错误处理
             (r"/is_error", index.ErrorHandler),
             # 反向代理
-            tornado.web.url('/rename', index.RenameHandler, name="json"),
+            tornado.web.url('/rename', index.RenameHandler, name="rename_demo"),
             (r"/one", index.OneHandler),
         ]
         # 把路由给父对象调用
