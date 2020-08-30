@@ -155,3 +155,19 @@ class OneHandler(tornado.web.RequestHandler):
         """
         url = self.reverse_url("rename_demo")
         self.write("<a href='%s'>去rename一个页面，one,one</a>" % (url))
+
+
+class RequestVlaueHandler(tornado.web.RequestHandler):
+    def get(self, *args, **kwargs):
+        """
+        利用HTTP协议向服务器传递参数
+            提取uri 的特定部分
+            get方法传递参数
+            post方式传递参数
+        request 对象
+        tornado.web.RequestHandler对象
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        pass

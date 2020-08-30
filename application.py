@@ -17,9 +17,11 @@ class Application(tornado.web.Application):
             (r"/redirect", index.RedirectHandler),
             # 错误处理
             (r"/is_error", index.ErrorHandler),
-            # 反向代理
+            # 反向代理  name 值不变，/ rename可以随意变化 [少用]
             tornado.web.url('/rename', index.RenameHandler, name="rename_demo"),
             (r"/one", index.OneHandler),
+            # 获取参数
+            (r"/one", index.RequestVlaueHandler),
         ]
         # 把路由给父对象调用
         # **config.settings 为配置
