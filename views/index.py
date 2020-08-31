@@ -1,5 +1,5 @@
 import tornado.web
-
+import json
 
 # 相当于视图
 class IndexHandler(tornado.web.RequestHandler):
@@ -212,4 +212,29 @@ class RequestVlaueHandler(tornado.web.RequestHandler):
         name = self.get_body_argument('name', default=None, strip=True)  #
         print(name)
         # self.get_query_arguments("name")
+        self.write("post request value success")
+
+
+class RequestPostVlaueHandler(tornado.web.RequestHandler):
+    def post(self, *args, **kwargs):
+        """
+        访问url: http://127.0.0.1:8800/request_value
+        使用json数据传参：
+                {
+                    "name":"18611111111",
+                    "password":"123456"
+                }
+        最后得到打印：
+            {'name': '18611111111', 'password': '123456'}
+            18611111111
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        post_body = self.request.body
+        # 反序列化body数据
+        body_data = json.loads(post_body.decode('utf8'))
+        print(body_data)
+        name = body_data.get('name')
+        print(name)
         self.write("post request value success")

@@ -24,6 +24,8 @@ class Application(tornado.web.Application):
             # (r"/request_value/(\w+)/(\w+)", index.RequestVlaueHandler),
             # 加这个?P<demo_01> 在handler 不需要排序
             (r"/request_value/(?P<demo_02>\w+)/(?P<demo_01>\w+)", index.RequestVlaueHandler),
+            # post方法
+            (r"/request_value", index.RequestPostVlaueHandler),
 
         ]
         # 把路由给父对象调用
