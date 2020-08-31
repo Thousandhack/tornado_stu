@@ -158,7 +158,7 @@ class OneHandler(tornado.web.RequestHandler):
 
 
 class RequestVlaueHandler(tornado.web.RequestHandler):
-    def get(self, *args, **kwargs):
+    def get(self, demo_01, demo_02, *args, **kwargs):
         """
         利用HTTP协议向服务器传递参数
             提取uri 的特定部分
@@ -166,8 +166,50 @@ class RequestVlaueHandler(tornado.web.RequestHandler):
             post方式传递参数
         request 对象
         tornado.web.RequestHandler对象
+            可以获取get请求，也可以获取post请求
+            在http报文的报头的自定义
+        tornado.httputiil.HTTPFile对象
+
+        访问：http://127.0.0.1:8800/request_value/one/two
+        打印one two
+
+        加了：?P<demo_01> 在handler 不需要排序
+        访问就打印： two one
+
+        访问：http://127.0.0.1:8800/request_value/one/two?a=1&b=2
+        打印：a的值为: 1
+              two one
+
+        访问：http://127.0.0.1:8800/request_value/one/two?c=1&c=2
+        # 使用：c = self.get_query_arguments("c")
+        # 打印：
+        # ['1', '2']
         :param args:
         :param kwargs:
         :return:
         """
-        pass
+        # self.get_query_argument(name,default=ARG_DEFAULT,strip=True)
+        # name如果出现多个同名参数会返回最后一个值
+        # 如果设置了未传的name的参数，返回defaul里面的默认值
+        # 如果没有设置default值,那么会抛出tornado.web.MissingArgumentError异常
+        # strip=True 表示去掉前后空格
+        a = self.get_query_argument("a", default=None, strip=True)
+        print("a的值为:", a)
+        print(demo_01, demo_02)
+        c = self.get_query_arguments("c", strip=True)
+        print(c)
+        self.write("get request value success")
+
+    def post(self, *args, **kwargs):
+        """
+        访问url: http://127.0.0.1:8800/request_value/one/two
+        使用form-data的方式加name  和对应的值
+        返回打印结果：hsz
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        name = self.get_body_argument('name', default=None, strip=True)  #
+        print(name)
+        # self.get_query_arguments("name")
+        self.write("post request value success")

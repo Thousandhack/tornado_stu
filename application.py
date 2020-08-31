@@ -21,7 +21,10 @@ class Application(tornado.web.Application):
             tornado.web.url('/rename', index.RenameHandler, name="rename_demo"),
             (r"/one", index.OneHandler),
             # 获取参数
-            (r"/one", index.RequestVlaueHandler),
+            # (r"/request_value/(\w+)/(\w+)", index.RequestVlaueHandler),
+            # 加这个?P<demo_01> 在handler 不需要排序
+            (r"/request_value/(?P<demo_02>\w+)/(?P<demo_01>\w+)", index.RequestVlaueHandler),
+
         ]
         # 把路由给父对象调用
         # **config.settings 为配置
