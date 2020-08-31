@@ -27,6 +27,8 @@ class Application(tornado.web.Application):
             # post方法
             (r"/request_value", index.RequestPostVlaueHandler),
 
+            (r"/request_everything", index.RequestEverythingHandler),
+
         ]
         # 把路由给父对象调用
         # **config.settings 为配置

@@ -1,6 +1,7 @@
 import tornado.web
 import json
 
+
 # 相当于视图
 class IndexHandler(tornado.web.RequestHandler):
     # 处理get请求的方法
@@ -238,3 +239,72 @@ class RequestPostVlaueHandler(tornado.web.RequestHandler):
         name = body_data.get('name')
         print(name)
         self.write("post request value success")
+
+
+class RequestEverythingHandler(tornado.web.RequestHandler):
+    def post(self):
+        """
+        Request对象
+            method HTTP请求的方式
+            Host 被请求的主机名
+            Uri  请求的完整资源地址，包括路径和get查询参数部分
+            Path 请求的路径部分
+            Query 请求的参数部分
+            Version 使用的HTTP版本
+            Headers 请求头
+            Body   请求体数据
+            Remote_ip 客户端的ip
+            Files 用户上传的文件，字典类型
+
+        HTTP 1.1 特点长连接
+
+        例子：http://127.0.0.1:8800/request_everything?a=1
+            {
+                "name":"hsz"
+            }
+
+        对应打印结果为：
+            post_mthod = POST
+            post_uri= /request_everything?a=1
+            post_host= 127.0.0.1:8800
+            post_query= a=1
+            post_version= HTTP/1.1
+            post_headers= Con: haha
+            Content-Type: application/json
+            User-Agent: PostmanRuntime/7.26.3
+            Accept: */*
+            Cache-Control: no-cache
+            Postman-Token: 6cc555af-ab09-403a-840c-52f62ebbd7d1
+            Host: 127.0.0.1:8800
+            Accept-Encoding: gzip, deflate, br
+            Connection: keep-alive
+            Content-Length: 22
+
+            post_body= b'{\r\n    "name":"hsz"\r\n}'
+            post_remote_ip= 127.0.0.1
+            post_files= {}
+        :return:
+        """
+        post_mthod = self.request.method
+        print("post_mthod =", post_mthod)
+        post_uri = self.request.uri
+        print("post_uri=", post_uri)
+        post_host = self.request.host
+        print("post_host=", post_host)
+        post_query = self.request.query
+        print("post_query=", post_query)
+        post_version = self.request.version
+        print("post_version=", post_version)
+
+        post_headlers = self.request.headers
+        print("post_headers=", post_headlers)
+
+        post_body = self.request.body
+        print("post_body=", post_body)
+
+        post_remote_ip = self.request.remote_ip
+        print("post_remote_ip=", post_remote_ip)
+
+        post_files = self.request.files
+        print("post_files=", post_files)
+        self.write("request everything ")
