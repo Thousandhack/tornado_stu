@@ -26,8 +26,10 @@ class Application(tornado.web.Application):
             (r"/request_value/(?P<demo_02>\w+)/(?P<demo_01>\w+)", index.RequestVlaueHandler),
             # post方法
             (r"/request_value", index.RequestPostVlaueHandler),
-
+            # 请求的各个参数
             (r"/request_everything", index.RequestEverythingHandler),
+            # 文件上传
+            (r"/file", index.RequestUpFileHandler),
 
         ]
         # 把路由给父对象调用

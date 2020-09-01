@@ -1,6 +1,6 @@
 import tornado.web
 import json
-
+import os
 
 # 相当于视图
 class IndexHandler(tornado.web.RequestHandler):
@@ -308,3 +308,5 @@ class RequestEverythingHandler(tornado.web.RequestHandler):
         post_files = self.request.files
         print("post_files=", post_files)
         self.write("request everything ")
+
+
