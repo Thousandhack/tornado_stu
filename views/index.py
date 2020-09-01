@@ -1,6 +1,8 @@
 import tornado.web
+import config
 import json
 import os
+
 
 # 相当于视图
 class IndexHandler(tornado.web.RequestHandler):
@@ -310,3 +312,44 @@ class RequestEverythingHandler(tornado.web.RequestHandler):
         self.write("request everything ")
 
 
+class RequestUpFileHandler(tornado.web.RequestHandler):
+    def post(self, *args, **kwargs):
+        """
+        tornado.httputil.HTTPFile 对象
+        作用： 接收到的文件对象
+        属性：
+            1.filename 文件的实际名字
+            2.body  文件的数据实体
+            3.content_type 文件的类型
+        发送一个demo.txt 的文件：
+        打印的内容为：
+        {'the_file': [{'filename': 'demo.txt', 'body': b'the test content!!!', 'content_type': 'text/plain'}]}
+        多个文件：
+        {
+            'the_file':
+            [{
+                'filename': 'demo.txt',
+                'body': b'the test content!!!',
+                'content_type': 'text/plain'
+            }],
+            'two':
+            [{
+                'filename': 'demo.txt',
+                'body': b'the test content!!!',
+                'content_type': 'text/plain'
+            }]
+        }
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        files = self.request.files
+        # 以下实现多文件上传（暂时,优化成图片名字一样的情况也可以，也就是连续上传两次一样的图片目前会有问题）
+        for inputname in files:
+            file_list = files[inputname]
+            for file_obj in file_list:
+                # 存储路径
+                file_path = os.path.join(config.UPFILE_DIR + file_obj.filename)
+                with open(file_path, "wb") as f:
+                    f.write(file_obj.body)
+        self.write("upload file success !!!")
