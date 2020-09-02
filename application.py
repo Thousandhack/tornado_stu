@@ -30,6 +30,8 @@ class Application(tornado.web.Application):
             (r"/request_everything", index.RequestEverythingHandler),
             # 文件上传
             (r"/file", index.RequestUpFileHandler),
+            # 响应的相关
+            (r"/write", index.WriteHandler),
 
         ]
         # 把路由给父对象调用

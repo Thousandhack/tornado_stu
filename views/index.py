@@ -353,3 +353,18 @@ class RequestUpFileHandler(tornado.web.RequestHandler):
                 with open(file_path, "wb") as f:
                     f.write(file_obj.body)
         self.write("upload file success !!!")
+
+
+class WriteHandler(tornado.web.RequestHandler):
+    def get(self, *args, **kwargs):
+        """
+        self.write 可以多次，但是self.finsh后self.write就会失效
+        write 返回json数据
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        self.write("write success one")
+        self.write("write success two")
+        # 刷新缓冲区，关闭当次请求通道
+        self.finish()
