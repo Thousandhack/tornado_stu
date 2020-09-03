@@ -372,13 +372,26 @@ class WriteHandler(tornado.web.RequestHandler):
 
 class IndexAccessOrderHandler(tornado.web.RequestHandler):
     """
-    看下面方法的执行顺序：
+    正常执行顺序：
     http://127.0.0.1:8800/access_order
     set_default_headers
     initialize
     prepare
     get   HTTP方法
     on_finish
+
+    异常运行：上面的URL
+   self.send_error(500)  # 触发write_error方法
+   内置方法运行顺序：
+    set_default_headers
+    initazlize
+    prepare
+    HTTP方法
+    set_default_headers
+    write_error
+    ERROR:tornado.access:500 GET /access_order (127.0.0.1) 1.00ms
+    on_finish
+
     """
 
     def initialize(self):
@@ -389,6 +402,7 @@ class IndexAccessOrderHandler(tornado.web.RequestHandler):
 
     def get(self, *args, **kwargs):
         print("HTTP方法")
+        self.send_error(500) # 触发write_error方法
         self.write("sunck is a good man")
 
     def set_default_headers(self):
