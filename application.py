@@ -32,6 +32,8 @@ class Application(tornado.web.Application):
             (r"/file", index.RequestUpFileHandler),
             # 响应的相关
             (r"/write", index.WriteHandler),
+            # Access to the order
+            (r"/access_order", index.IndexAccessOrderHandler),
 
         ]
         # 把路由给父对象调用

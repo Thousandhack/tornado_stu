@@ -368,3 +368,40 @@ class WriteHandler(tornado.web.RequestHandler):
         self.write("write success two")
         # 刷新缓冲区，关闭当次请求通道
         self.finish()
+
+
+class IndexAccessOrderHandler(tornado.web.RequestHandler):
+    """
+    看下面方法的执行顺序：
+    http://127.0.0.1:8800/access_order
+    set_default_headers
+    initialize
+    prepare
+    get   HTTP方法
+    on_finish
+    """
+
+    def initialize(self):
+        print("initazlize")
+
+    def prepare(self):
+        print("prepare")
+
+    def get(self, *args, **kwargs):
+        print("HTTP方法")
+        self.write("sunck is a good man")
+
+    def set_default_headers(self):
+        print("set_default_headers")
+
+    def write_error(self, status_code: int, **kwargs):
+        """
+        出错的情况下才会触发
+        :param status_code:
+        :param kwargs:
+        :return:
+        """
+        print("write_error")
+
+    def on_finish(self) -> None:
+        print("on_finish")
