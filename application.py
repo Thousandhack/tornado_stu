@@ -34,6 +34,8 @@ class Application(tornado.web.Application):
             (r"/write", index.WriteHandler),
             # Access to the order
             (r"/access_order", index.IndexAccessOrderHandler),
+            # 加载模板的接口
+            (r"/home", index.HomeHandler),
 
         ]
         # 把路由给父对象调用

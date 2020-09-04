@@ -419,3 +419,19 @@ class IndexAccessOrderHandler(tornado.web.RequestHandler):
 
     def on_finish(self) -> None:
         print("on_finish")
+
+
+class HomeHandler(tornado.web.RequestHandler):
+    def get(self, *args, **kwargs):
+        """
+        返回home的相应网页
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        tmp = 100
+        per = {
+            "name": "hsz",
+            "age": 25
+        }
+        self.render('home.html', num=tmp, per=per)
