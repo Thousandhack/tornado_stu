@@ -20,4 +20,5 @@ settings = {
     "debug": True,  # False为生产模式
     "static_path": os.path.join(BASE_DIR, "static"),  # 设置文件保存目录
     "template_path": os.path.join(BASE_DIR, "templates"),  # 设置模块文件目录
+    "autoescape": None,  # 关于整个项目的自动转义
 }
