@@ -402,7 +402,7 @@ class IndexAccessOrderHandler(tornado.web.RequestHandler):
 
     def get(self, *args, **kwargs):
         print("HTTP方法")
-        self.send_error(500) # 触发write_error方法
+        self.send_error(500)  # 触发write_error方法
         self.write("sunck is a good man")
 
     def set_default_headers(self):
@@ -435,3 +435,15 @@ class HomeHandler(tornado.web.RequestHandler):
             "age": 25
         }
         self.render('home.html', num=tmp, per=per)
+
+
+class TransHandler(tornado.web.RequestHandler):
+    def get(self, *args, **kwargs):
+        """
+        默认的话就是自动转义，就是过去后仅仅是字符串
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        str = "<h1>hsz is a good man<h1/>"
+        self.render("trans.html", str=str)

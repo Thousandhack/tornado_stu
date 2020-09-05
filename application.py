@@ -36,6 +36,8 @@ class Application(tornado.web.Application):
             (r"/access_order", index.IndexAccessOrderHandler),
             # 加载模板的接口
             (r"/home", index.HomeHandler),
+            # trans 转义
+            (r"/trans", index.TransHandler),
 
         ]
         # 把路由给父对象调用
