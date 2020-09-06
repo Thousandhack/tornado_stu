@@ -454,3 +454,42 @@ class CartHandler(tornado.web.RequestHandler):
         self.render('cart.html', title="cart")
 
 
+# 查询数据的接口
+import json
+
+
+class TeachersHandler(tornado.web.RequestHandler):
+    def get(self, *args, **kwargs):
+        """
+        访问：  http://127.0.0.1:8800/teachers
+        从数据库中查询
+        返回列表数据
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        teachers = self.application.db.get_all_obj("select id,name from tb_teacher",tableName="tb_teacher")
+        print(teachers)
+        self.write({"data": teachers})
+
+    def post(self):
+        """
+        新增数据接口：
+            http://127.0.0.1:8700/teachers
+            {
+                "name":"蒋老师"
+            }
+        :return:
+        """
+        post_body = self.request.body.decode('utf8')
+        print(post_body, type(post_body))
+        post_dict = json.loads(post_body)
+        if post_dict.__contains__('name'):
+            teacher_name = post_dict.get('name')
+            sql = "insert into tb_teacher (name) values('%s');" % teacher_name
+            print(sql)
+            add_info = self.application.db.insert(sql=sql)
+            print(add_info)
+            self.write("add success")
+        else:
+            self.write("request bad")

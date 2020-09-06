@@ -2,6 +2,7 @@ from views import index
 import tornado.web
 import config
 import os
+from conn_sql import ConnectSql
 
 
 class Application(tornado.web.Application):
@@ -41,15 +42,23 @@ class Application(tornado.web.Application):
             (r"/trans", index.TransHandler),
             # 继承
             (r"/cart", index.CartHandler),
+
+            # sql students
+            (r"/teachers", index.TeachersHandler),
             # 引入其他文件
             #    StaticFileHandler
             # 用来提供静资源文件的handler
             # 作用： 可以通过tornado.web.StaticFileHandler 来映射静态文件
             # 使用：
             (r"/(.*)$", tornado.web.StaticFileHandler, {
-                "path": os.path.join(config.BASE_DIR, "static/html"), "default_filename":"index.html"}),
+                "path": os.path.join(config.BASE_DIR, "static/html"), "default_filename": "index.html"}),
+
+
 
         ]
         # 把路由给父对象调用
         # **config.settings 为配置
         super(Application, self).__init__(handlers, **config.settings)
+        # 连接数据库相关
+        self.db = ConnectSql(config.mysql['host'], config.mysql['user'], config.mysql['passwd'], config.mysql['dbName'],
+                             config.mysql['port'])
