@@ -38,6 +38,8 @@ class Application(tornado.web.Application):
             (r"/home", index.HomeHandler),
             # trans 转义
             (r"/trans", index.TransHandler),
+            # 继承
+            (r"/cart", index.CartHandler),
 
         ]
         # 把路由给父对象调用

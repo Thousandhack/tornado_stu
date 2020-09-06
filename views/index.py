@@ -447,3 +447,8 @@ class TransHandler(tornado.web.RequestHandler):
         """
         str = "<h1>hsz is a good man<h1/>"
         self.render("trans.html", str=str)
+
+
+class CartHandler(tornado.web.RequestHandler):
+    def get(self, *args, **kwargs):
+        self.render('cart.html', title="cart")
