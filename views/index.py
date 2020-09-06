@@ -5,7 +5,7 @@ import os
 
 
 # 相当于视图
-class IndexHandler(tornado.web.RequestHandler):
+class IndexReturnHandler(tornado.web.RequestHandler):
     # 处理get请求的方法
     def get(self):
         #  给浏览器响应信息
@@ -452,3 +452,5 @@ class TransHandler(tornado.web.RequestHandler):
 class CartHandler(tornado.web.RequestHandler):
     def get(self, *args, **kwargs):
         self.render('cart.html', title="cart")
+
+

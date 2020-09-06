@@ -1,6 +1,7 @@
 from views import index
 import tornado.web
 import config
+import os
 
 
 class Application(tornado.web.Application):
@@ -10,7 +11,7 @@ class Application(tornado.web.Application):
 
     def __init__(self):
         handlers = [
-            (r"/", index.IndexHandler),
+            (r"/return", index.IndexReturnHandler),
             (r"/test_value", index.TestValueHandler, {"test_value_1": 1, "test_value_2": 2}),  # 传参数进去
             (r"/json", index.JsonHandler),
             (r"/status_code", index.StatusCodeHandler),
@@ -40,6 +41,13 @@ class Application(tornado.web.Application):
             (r"/trans", index.TransHandler),
             # 继承
             (r"/cart", index.CartHandler),
+            # 引入其他文件
+            #    StaticFileHandler
+            # 用来提供静资源文件的handler
+            # 作用： 可以通过tornado.web.StaticFileHandler 来映射静态文件
+            # 使用：
+            (r"/(.*)$", tornado.web.StaticFileHandler, {
+                "path": os.path.join(config.BASE_DIR, "static/html"), "default_filename":"index.html"}),
 
         ]
         # 把路由给父对象调用
